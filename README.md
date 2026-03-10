@@ -83,6 +83,35 @@ This writes `data/sample_transactions.json`.
   python -m financial_risk_analyzer data/sample_transactions.json -o results.json
   ```
 
+## Docker
+
+Build and run with Docker (no local Python needed):
+
+```bash
+# Build
+docker build -t financial-risk-analyzer .
+
+# Run with bundled sample data, rule-based only (no API key)
+docker run --rm financial-risk-analyzer
+
+# Run with LLM (pass your API key)
+docker run --rm -e OPENAI_API_KEY=your_key financial-risk-analyzer data/sample_transactions.json
+
+# Run on your own file (mount it)
+docker run --rm -v /path/to/your/transactions.json:/data/input.json financial-risk-analyzer /data/input.json --no-llm
+
+# Write results out of the container
+docker run --rm -v $(pwd)/out:/out financial-risk-analyzer data/sample_transactions.json -o /out/results.json --no-llm
+```
+
+The image includes generated sample data in `data/sample_transactions.json`. Use `-e OPENAI_API_KEY` for LLM mode or omit it for rule-based only.
+
+With Docker Compose (loads `OPENAI_API_KEY` from `.env`):
+
+```bash
+docker compose run --rm analyzer
+```
+
 ## Example output
 
 Example risk flag for an account with multiple high-value transfers in a short window:

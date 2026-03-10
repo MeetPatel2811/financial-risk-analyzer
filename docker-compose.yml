@@ -1,0 +1,12 @@
+# Optional: run the analyzer with env loaded from .env (e.g. OPENAI_API_KEY)
+services:
+  analyzer:
+    build: .
+    env_file: .env
+    # Override CMD to run with LLM when OPENAI_API_KEY is in .env
+    command: ["data/sample_transactions.json"]
+    # Example: mount local file and output dir
+    # volumes:
+    #   - ./my_transactions.json:/app/data/input.json
+    #   - ./results:/app/out
+    # command: ["/app/data/input.json", "-o", "/app/out/results.json"]

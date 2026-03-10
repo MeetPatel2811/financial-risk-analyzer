@@ -1,0 +1,29 @@
+# Git and env
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# Python
+.venv
+venv
+env
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.coverage
+htmlcov
+
+# IDE and OS
+.idea
+.vscode
+.DS_Store
+
+# Optional: exclude tests to keep image smaller (tests not needed at runtime)
+tests/
+.github/
+
+# Outputs
+results.json
