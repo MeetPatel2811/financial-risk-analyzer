@@ -5,6 +5,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from financial_risk_analyzer.exceptions import LoadError
 from financial_risk_analyzer.metrics import get_metrics
 from financial_risk_analyzer.models import Transaction
 
@@ -38,6 +39,8 @@ def _parse_one(raw: dict[str, Any]) -> Transaction | None:
 
 def load_transactions_from_dicts(data: list[dict[str, Any]]) -> list[Transaction]:
     """Convert a list of transaction dicts into structured Transaction objects."""
+    if not isinstance(data, list):
+        raise TypeError(f"Expected list of dicts, got {type(data).__name__}")
     out: list[Transaction] = []
     for raw in data:
         t = _parse_one(raw)
@@ -59,11 +62,11 @@ def load_transactions_from_file(path: str | Path) -> list[Transaction]:
     try:
         text = path.read_text(encoding="utf-8")
     except OSError as e:
-        raise OSError(f"Cannot read file {path}: {e}") from e
+        raise LoadError(f"Cannot read file {path}: {e}") from e
     try:
         data = json.loads(text)
     except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON in {path}: {e}") from e
+        raise LoadError(f"Invalid JSON in {path}: {e}") from e
     if not isinstance(data, list):
         data = data.get("transactions", data) if isinstance(data, dict) else [data]
     if not isinstance(data, list):

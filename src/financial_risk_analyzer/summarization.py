@@ -1,20 +1,20 @@
 """Build human-readable summaries from transaction lists for LLM input."""
 
 from collections import defaultdict
+from datetime import datetime
 from typing import DefaultDict
 
 from financial_risk_analyzer.models import Transaction
 
 
 def _minutes_between(ts1: str, ts2: str) -> float:
-    """Approximate minutes between two ISO-like timestamps (naive parse)."""
+    """Approximate minutes between two ISO-like timestamps (naive parse). Returns 0.0 on parse error."""
     try:
-        from datetime import datetime
         t1 = datetime.fromisoformat(ts1.replace("Z", "+00:00"))
         t2 = datetime.fromisoformat(ts2.replace("Z", "+00:00"))
         delta = abs((t2 - t1).total_seconds())
         return delta / 60.0
-    except Exception:
+    except (ValueError, TypeError):
         return 0.0
 
 

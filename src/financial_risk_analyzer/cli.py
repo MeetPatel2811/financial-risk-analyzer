@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from financial_risk_analyzer.config import Settings
+from financial_risk_analyzer.exceptions import LoadError
 from financial_risk_analyzer.metrics import get_metrics
 from financial_risk_analyzer.pipeline import run_pipeline_from_file
 
@@ -55,7 +56,10 @@ def main() -> None:
     use_llm = not args.no_llm and bool(settings.openai_api_key)
     try:
         results = run_pipeline_from_file(args.input, settings, use_llm=use_llm)
-    except (FileNotFoundError, ValueError, OSError) as e:
+    except LoadError as e:
+        logger.error("Load failed: %s", e)
+        sys.exit(EXIT_INPUT_ERROR)
+    except (FileNotFoundError, ValueError, OSError, TypeError) as e:
         logger.error("Pipeline failed: %s", e)
         sys.exit(EXIT_INPUT_ERROR)
 
@@ -71,10 +75,18 @@ def main() -> None:
     ]
 
     if args.output:
-        args.output.write_text(json.dumps(out, indent=2), encoding="utf-8")
-        logger.info("Wrote results to %s", args.output)
+        try:
+            args.output.write_text(json.dumps(out, indent=2), encoding="utf-8")
+            logger.info("Wrote results to %s", args.output)
+        except OSError as e:
+            logger.error("Cannot write output file %s: %s", args.output, e)
+            sys.exit(EXIT_INPUT_ERROR)
     else:
-        print(json.dumps(out, indent=2))
+        try:
+            print(json.dumps(out, indent=2))
+        except (TypeError, ValueError) as e:
+            logger.error("Failed to serialize results: %s", e)
+            sys.exit(EXIT_INPUT_ERROR)
 
     flagged = sum(1 for _, r in results if r.risk_flag)
     if flagged:
