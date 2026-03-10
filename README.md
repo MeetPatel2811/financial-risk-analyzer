@@ -130,7 +130,3 @@ financial-risk-analyzer/
 └── scripts/
     └── generate_synthetic_data.py
 ```
-
-## License
-
-MIT.
