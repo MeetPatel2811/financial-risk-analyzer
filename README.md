@@ -105,7 +105,14 @@ Accounts with no detected risk will have `risk_flag: false` and an explanation. 
 pytest
 ```
 
-Tests use mocked OpenAI client where applicable; no real API calls in CI.
+- **Unit tests** use a mocked OpenAI client (no API key needed).
+- **LLM integration tests** call the real OpenAI API. Run them with an API key set:
+  ```bash
+  OPENAI_API_KEY=your_key pytest -m llm -v
+  ```
+  or set `RUN_LLM_TESTS=1` and `OPENAI_API_KEY` in the environment.
+
+**CI (GitHub Actions):** The workflow runs unit tests on every push/PR. On push to `main`, it also runs LLM integration tests when the repository has an `OPENAI_API_KEY` secret configured (Settings → Secrets and variables → Actions). Add that secret to enable real API calls in CI.
 
 ## Project structure
 

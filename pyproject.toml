@@ -31,3 +31,6 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+    "llm: run tests that call the real OpenAI API (requires OPENAI_API_KEY or RUN_LLM_TESTS=1)",
+]
