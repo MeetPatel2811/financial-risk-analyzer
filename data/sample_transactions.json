@@ -1,0 +1,74 @@
+[
+  {
+    "transaction_id": "T-A102-0",
+    "account_id": "A102",
+    "transaction_amount": 5000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:00:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A102-1",
+    "account_id": "A102",
+    "transaction_amount": 5000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:02:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A102-2",
+    "account_id": "A102",
+    "transaction_amount": 5000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:04:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A103-mixed-0",
+    "account_id": "A103",
+    "transaction_amount": 1000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:00:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A103-mixed-1",
+    "account_id": "A103",
+    "transaction_amount": 1000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:01:00",
+    "status": "pending"
+  },
+  {
+    "transaction_id": "T-A103-mixed-2",
+    "account_id": "A103",
+    "transaction_amount": 1000.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 10:02:00",
+    "status": "failed"
+  },
+  {
+    "transaction_id": "T-A104-norm-0",
+    "account_id": "A104",
+    "transaction_amount": 50.0,
+    "transaction_type": "payment",
+    "timestamp": "2024-03-01 10:00:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A104-norm-1",
+    "account_id": "A104",
+    "transaction_amount": 120.0,
+    "transaction_type": "transfer",
+    "timestamp": "2024-03-01 12:00:00",
+    "status": "completed"
+  },
+  {
+    "transaction_id": "T-A104-norm-2",
+    "account_id": "A104",
+    "transaction_amount": 35.0,
+    "transaction_type": "payment",
+    "timestamp": "2024-03-01 14:00:00",
+    "status": "completed"
+  }
+]

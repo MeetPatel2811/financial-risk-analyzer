@@ -1,0 +1,5 @@
+# LLM-Powered Financial Operations Risk Analyzer
+# Install: pip install -r requirements.txt (prefer: pip install -e . from project root)
+openai>=1.0
+pydantic>=2.0
+python-dotenv>=1.0
